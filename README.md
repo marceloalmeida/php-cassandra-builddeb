@@ -1,5 +1,7 @@
 # Buildtask for Cassandra driver for PHP5.6
 
+[![Build Status](https://travis-ci.org/marcelosousaalmeida/php5-cassandra-builddeb.svg?branch=master)](https://travis-ci.org/marcelosousaalmeida/php5-cassandra-builddeb)
+
 Task to build Debian packages of Cassandra driver for PHP 5.6.
 
 
