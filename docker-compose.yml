@@ -2,20 +2,7 @@ builder:
   build: .
   command: |
     bash -c "bash -s <<EOF
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get install -y libgmp10 libgmp-dev
-    wget -q http://downloads.datastax.com/cpp-driver/ubuntu/14.04/dependencies/libuv/v1.8.0/libuv-dev_1.8.0-1_amd64.deb http://downloads.datastax.com/cpp-driver/ubuntu/14.04/dependencies/libuv/v1.8.0/libuv_1.8.0-1_amd64.deb http://downloads.datastax.com/cpp-driver/ubuntu/14.04/v2.3.0/cassandra-cpp-driver-dev_2.3.0-1_amd64.deb http://downloads.datastax.com/cpp-driver/ubuntu/14.04/v2.3.0/cassandra-cpp-driver_2.3.0-1_amd64.deb
-    dpkg -i /root/*.deb
-    pecl download cassandra 1.1.0
-    tar -zxvf cassandra-1.1.0.tgz
-    cd cassandra-1.1.0
-    cp -r /src/* /root/cassandra-1.1.0/.
-    phpize
-    ./configure
-    checkinstall -y --install=no --pkgname='php5-cassandra' --pkgversion='1.1.0-aig' --pkggroup='php' --pkgsource='https://github.com/datastax/php-driver' --maintainer='Marcelo Almeida \<marcelo.almeida@africainternetgroup.com\>' --requires='php5-common \(\>= 5.6.0\), cassandra-cpp-driver \(\>= 2.3.0\), libuv \(\>= 1.8.0\), libgmp10:amd64 \(\>= 2.6.0\)' --include=include_etc
-    mv /root/cassandra-1.1.0/php5-cassandra_1.1.0-aig-1_amd64.deb /pkg/
+    cp /root/cassandra-*/*.deb /pkg/.
     EOF"
   volumes:
-    - ./src:/src
     - ./pkg:/pkg
-  working_dir: /root
