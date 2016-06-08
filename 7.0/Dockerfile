@@ -1,4 +1,4 @@
-FROM debian:jessie-backports
+FROM marceloalmeida/php-docker:latest
 
 MAINTAINER Marcelo Almeida <marcelo.almeida@jumia.com>
 
@@ -9,10 +9,14 @@ ENV VERSION 1.1.0
 
 # INSTALL BUILDER DEPENDENCIES
 RUN apt-get update && apt-get install -y --no-install-recommends \
+  apt-utils \
+  build-essential \
+  ca-certificates \
   checkinstall \
   make \
-  php5-dev \
-  php-pear \
+  php7.0-dev \
+  re2c \
+  runawk \
   wget
 
 COPY src /src
@@ -28,13 +32,13 @@ RUN wget -q http://downloads.datastax.com/cpp-driver/ubuntu/14.04/dependencies/l
   dpkg -i /root/*.deb
 
 # CREATE PACKAGE
-RUN pecl download cassandra-$VERSION ;\
+RUN wget -q https://pecl.php.net/get/cassandra-$VERSION.tgz ;\
   tar -zxvf cassandra-$VERSION.tgz ;\
   cd cassandra-$VERSION ;\
   cp -r /src/* /root/cassandra-$VERSION/. ;\
   phpize ;\
   ./configure ;\
-  checkinstall -y --install=no --pkgname='php5-cassandra' --pkgversion='$VERSION-aig' --pkggroup='php' --pkgsource='https://github.com/datastax/php-driver' --maintainer='Marcelo Almeida \<marcelo.almeida@jumia.com\>' --requires='php5-common \(\>= 5.6.0\), cassandra-cpp-driver \(\>= 2.3.0\), libuv \(\>= 1.8.0\), libgmp10:amd64 \(\>= 2.6.0\)' --include=include_etc
+  checkinstall -y --install=no --pkgname='php7.0-cassandra' --pkgversion='$VERSION-aig' --pkggroup='php' --pkgsource='https://github.com/datastax/php-driver' --maintainer='Marcelo Almeida \<marcelo.almeida@jumia.com\>' --requires='php7.0-common \(\>= 7.0.7\), cassandra-cpp-driver \(\>= 2.3.0\), libuv \(\>= 1.8.0\), libgmp10:amd64 \(\>= 2.6.0\)' --include=include_etc
 
 # PERFORM TEST
 RUN cd cassandra-$VERSION ;\

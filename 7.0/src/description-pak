@@ -1,0 +1,5 @@
+DataStax PHP Driver for Apache Cassandra
+
+A modern, feature-rich and highly tunable PHP client library for Apache
+Cassandra and DataStax Enterprise using exclusively Cassandra's binary
+protocol and Cassandra Query Language v3.
