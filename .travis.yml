@@ -3,12 +3,14 @@ services: docker
 
 env:
   - VERSION=latest
+  - VERSION=7.0
 
 install:
   - git clone https://github.com/docker-library/official-images.git ~/official-images
 
 before_script:
   - env | sort
+  - test latest = "$VERSION" || cd "$VERSION"
   - image="marceloalmeida/php5-cassandra-builddeb:${VERSION}"
 
 script:
